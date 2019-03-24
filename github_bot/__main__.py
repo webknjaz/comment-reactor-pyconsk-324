@@ -70,7 +70,7 @@ async def on_pr_check_wip(
         data={
             'name': 'Work-in-progress state 🤖',
             'head_branch': pr_head_branch,
-            'head_sha': head_sha,
+            'head_sha': pr_head_sha,
             'status': 'queued',
             'started_at': f'{datetime.utcnow().isoformat()}Z',
         },
