@@ -22,6 +22,25 @@ async def on_issue_opened(
     await github_api.post(comments_api_url, data={"body": message})
 
 
+@process_event_actions('issue_comment', {'created'})
+@process_webhook_payload
+async def on_comment_created(
+        *,
+        action, issue, comment, repository=None, sender=None,
+        installation=None,
+        assignee=None, changes=None,
+):
+    """Whenever an comment is posted, like it."""
+    github_api = RUNTIME_CONTEXT.app_installation_client
+    comment_reactions_api_url = f'{comment["url"]}/reactions'
+
+    await github_api.post(
+        comment_reactions_api_url,
+        preview_api_version='squirrel-girl',
+        data={"content": "+1"},
+    )
+
+
 if __name__ == "__main__":
     run_app(
         name='PyCon-Bot-by-webknjaz',
