@@ -51,6 +51,7 @@ async def on_pr_check_wip(
         repository, sender,
         organization,
         installation,
+        **kwargs,
 ):
     """React to an opened or changed PR event.
 
