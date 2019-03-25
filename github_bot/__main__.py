@@ -121,12 +121,9 @@ async def on_pr_check_wip(
                 'summary':
                     'This change is ready to be reviewed.'
                     '\n\n'
-                    #'<center>'
                     '![Go ahead and review it!]('
                     'https://farm1.staticflickr.com'
-                    '/173/400428874_e087aa720d_b.jpg)'
-                    #'</center>',
-                    ,
+                    '/173/400428874_e087aa720d_b.jpg)',
             } if not is_wip_pr else {
                 'title':
                     '🤖 This PR is Work-in-progress: '
@@ -140,16 +137,13 @@ async def on_pr_check_wip(
                     '🚧 Please do not merge this PR '
                     'as it is still under construction.'
                     '\n\n'
-                    #'<center>'
                     '![Under constuction tape]('
                     'https://cdn.pixabay.com'
                     '/photo/2012/04/14/14/59'
                     '/border-34209_960_720.png)\n'
                     "![Homer's on the job]("
                     'https://farm3.staticflickr.com'
-                    '/2150/2101058680_64fa63971e.jpg)'
-                    #'</center>',
-                    ,
+                    '/2150/2101058680_64fa63971e.jpg)',
             },
         },
     )
