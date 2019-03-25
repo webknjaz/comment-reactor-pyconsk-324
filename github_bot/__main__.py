@@ -1,4 +1,5 @@
 from datetime import datetime
+import re
 
 from octomachinery.app.routing import process_event_actions
 from octomachinery.app.routing.decorators import process_webhook_payload
@@ -145,12 +146,62 @@ async def on_pr_check_wip(
                     'https://farm3.staticflickr.com'
                     '/2150/2101058680_64fa63971e.jpg)',
             },
+            'actions': [
+                {
+                    'label': 'WIP it!',
+                    'description': 'Mark the PR as WIP',
+                    'identifier': 'wip',
+                } if not is_wip_pr else {
+                    'label': 'UnWIP it!',
+                    'description': 'Remove WIP mark from the PR',
+                    'identifier': 'unwip',
+                },
+            ],
         },
     )
 
 
+@process_event_actions('check_run', {'requested_action'})
+@process_webhook_payload
+async def on_pr_action_button_click(
+        *,
+        action, check_run, requested_action,
+        repository, sender,
+        installation,
+):
+    """Flip the WIP switch when user hits a button."""
+    if requested_action not in {'wip', 'unwip'}:
+        return
 
+    github_api = RUNTIME_CONTEXT.app_installation_client
 
+    wip_it = requested_action == 'wip'
+
+    pr = check_run['pull_requests']
+    pr_title = pr['title']
+    pr_update_uri = pr['url']
+
+    if wip_it:
+        new_title = f'WIP: {pr_title}'
+    else:
+        wip_markers = (
+            'wip', '🚧', 'dnm',
+            'work in progress', 'work-in-progress',
+            'do not merge', 'do-not-merge',
+            'draft',
+        )
+
+        wip_regex = f"(\s*({'|'.join(wip_markers)}):?\s+)"
+        new_title = re.sub(
+            wip_regex, '', pr_title, flags=re.I,
+        ).replace('🚧', '')
+
+    await github_api.patch(
+        pr_update_uri,
+        data={
+            'title': new_title,
+        },
+    )
 
 if __name__ == "__main__":
     run_app(
