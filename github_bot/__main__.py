@@ -181,7 +181,7 @@ async def on_pr_action_button_click(
     pr = check_run['pull_requests'][0]
     pr_api_uri = pr['url']
 
-    pr_details = await github_api.get(
+    pr_details = await github_api.getitem(
         pr_api_uri,
         data={
             'title': new_title,
