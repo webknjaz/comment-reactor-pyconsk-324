@@ -111,40 +111,42 @@ async def on_pr_check_wip(
                 'title':
                     '🤖 This PR is not Work-in-progress: Good to go',
                 'text':
-                    'Debug info: '
-                    f'is_wip_pr={is_wip_pr!s} '
-                    f'pr_title={pr_title!s} '
+                    'Debug info:\n'
+                    f'is_wip_pr={is_wip_pr!s}\n'
+                    f'pr_title={pr_title!s}\n'
                     f'wip_markers={wip_markers!r}',
                 'summary':
                     'This change is ready to be reviewed.'
                     '\n\n'
-                    '<center>'
+                    #'<center>'
                     '![Go ahead and review it!]('
                     'https://farm1.staticflickr.com'
                     '/173/400428874_e087aa720d_b.jpg)'
-                    '</center>',
+                    #'</center>',
+                    ,
             } if not is_wip_pr else {
                 'title':
                     '🤖 This PR is Work-in-progress: '
                     'It is incomplete',
                 'text':
-                    'Debug info: '
-                    f'is_wip_pr={is_wip_pr!s} '
-                    f'pr_title={pr_title!s} '
+                    'Debug info:\n'
+                    f'is_wip_pr={is_wip_pr!s}\n'
+                    f'pr_title={pr_title!s}\n'
                     f'wip_markers={wip_markers!r}',
                 'summary':
                     '🚧 Please do not merge this PR '
                     'as it is still under construction.'
                     '\n\n'
-                    '<center>'
+                    #'<center>'
                     '![Under constuction tape]('
                     'https://cdn.pixabay.com'
                     '/photo/2012/04/14/14/59'
-                    '/border-34209_960_720.png)'
+                    '/border-34209_960_720.png)\n'
                     "![Homer's on the job]("
                     'https://farm3.staticflickr.com'
                     '/2150/2101058680_64fa63971e.jpg)'
-                    '</center>',
+                    #'</center>',
+                    ,
             },
         },
     )
