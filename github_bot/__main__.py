@@ -183,7 +183,7 @@ async def on_pr_action_button_click(
 
     pr_details = await github_api.getitem(pr_api_uri)
 
-    pr_title = pr['pr_details']
+    pr_title = pr_details['title']
 
     if wip_it:
         new_title = f'WIP: {pr_title}'
