@@ -58,6 +58,9 @@ async def on_pr_check_wip(
     """
     github_api = RUNTIME_CONTEXT.app_installation_client
 
+    check_run_name = 'Work-in-progress state 🤖'
+    check_run_name = 'Work-in-progress state'
+
     pr_head_branch = pull_request['head']['ref']
     pr_head_sha = pull_request['head']['sha']
     repo_url = pull_request['head']['repo']['url']
@@ -68,7 +71,7 @@ async def on_pr_check_wip(
         check_runs_base_uri,
         preview_api_version='antiope',
         data={
-            'name': 'Work-in-progress state 🤖',
+            'name': check_run_name,
             'head_branch': pr_head_branch,
             'head_sha': pr_head_sha,
             'status': 'queued',
@@ -84,7 +87,7 @@ async def on_pr_check_wip(
         check_runs_updates_uri,
         preview_api_version='antiope',
         data={
-            'name': 'Work-in-progress state 🤖',
+            'name': check_run_name,
             'status': 'in_progress',
         },
     )
@@ -103,7 +106,7 @@ async def on_pr_check_wip(
         check_runs_updates_uri,
         preview_api_version='antiope',
         data={
-            'name': 'Work-in-progress state 🤖',
+            'name': check_run_name,
             'status': 'completed',
             'conclusion': 'success' if not is_wip_pr else 'neutral',
             'completed_at': f'{datetime.utcnow().isoformat()}Z',
