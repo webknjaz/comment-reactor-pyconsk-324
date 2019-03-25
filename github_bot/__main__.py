@@ -59,7 +59,7 @@ async def on_pr_check_wip(
     github_api = RUNTIME_CONTEXT.app_installation_client
 
     check_run_name = 'Work-in-progress state 🤖'
-    check_run_name = 'Work-in-progress state'
+    # check_run_name = 'Work-in-progress state'
 
     pr_head_branch = pull_request['head']['ref']
     pr_head_sha = pull_request['head']['sha']
