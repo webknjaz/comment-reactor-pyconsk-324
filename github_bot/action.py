@@ -1,4 +1,4 @@
-"""Cronicler action processor."""
+"""Comment-reactor-pyconsk-324 action processor."""
 
 from octomachinery.app.action.runner import run as process_action
 
